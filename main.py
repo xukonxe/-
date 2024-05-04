@@ -45,24 +45,8 @@ class 五子棋十房间(interactions.Extension):
         await ctx.send(f"Pong {option_name}!\nFile content: {file_content}")
         internal_t.internal_t_testfunc()
 
-    @interactions.listen(MessageCreate)
-    async def on_messagecreate(self, event: MessageCreate):
-        '''
-        Event listener when a new message is created
-        '''
-        print(f"User {event.message.author.display_name} sent '{event.message.content}'")
-
-    # You can even create a background task to run as you wish.
-    # Refer to https://interactions-py.github.io/interactions.py/Guides/40%20Tasks/ for guides
-    # Refer to https://interactions-py.github.io/interactions.py/API%20Reference/API%20Reference/models/Internal/tasks/ for detailed APIs
-    @Task.create(IntervalTrigger(minutes=1))
-    async def task_everyminute(self):
-        channel: interactions.TYPE_MESSAGEABLE_CHANNEL = self.bot.get_guild(1234567890).get_channel(1234567890)
-        await channel.send("Background task send every one minute")
-        print("Background Task send every one minute")
-
+    
     # The command to start the task
-    @module_base.subcommand("start_task", sub_cmd_description="Start the background task")
+    @module_base.subcommand("test", sub_cmd_description="Start the background task")
     async def module_base_starttask(self, ctx: interactions.SlashContext):
-        self.task_everyminute.start()
         await ctx.send("Task started")
